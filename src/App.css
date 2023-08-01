@@ -36,3 +36,66 @@
     transform: rotate(360deg);
   }
 }
+
+.container {
+  font-Family: Arial, sans-serif;
+  text-Align: center;
+  padding: 20px;
+  background-Color: lightgray;
+}
+.header {
+  font-Size: 36px;
+  font-Weight: bold;
+  margin-Bottom: 20px;
+}
+.beer-button {
+  align-items: center;
+  padding: 10px 20px;
+  font-Size: 18px;
+  background-Color: dodgerblue;
+  color: white;
+  border: none;
+  border-Radius: 5px;
+  cursor: pointer;
+}
+
+.description {
+  font-Size: 16px;
+  margin-Top: 10px;
+}
+
+.beerImg {
+  width: 100%;
+  max-Width: 300px;
+  height: auto;
+  border-Radius: 5px;
+  margin-Top: 20px;
+  
+}
+
+.col {
+  font-Size: 16px;
+  margin-Top: 20px;
+  text-Align: left;
+}
+
+.ibu {
+  color: darkred;
+  text-Align: centre;
+}
+
+.srm {
+  color: darkorange;
+  text-Align: centre;
+}
+
+.aLevel {
+  color: darkblue;
+  text-Align: centre;
+}
+
+.imgInfo {
+  Width: 200px;
+  height: 200px;
+  border-Radius: 8px;
+}

@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useState} from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import BeerAPI from "./components/BeerAPI";
+import BeerInfo from "./components/BeerInfo";
+// import FoodPairing from "./components/FoodPairing";
+import Button from "./components/Button";
+import './components/Styles.css'
+import ConfirmAge from "./components/ConfirmAge";
 
-function App() {
+const App = () => {
+  const [isFetching, setFetching] = useState(false);
+
+  const refetchData = async () => {
+    try{
+      setFetching(true);
+      const response = await fetch ('https://api.punkapi.com/v2/beers/random');
+      const data = await response.json();
+      setFetching(false);
+      return data[0];
+    } catch (error) {
+      console.log('Error fetching bee data:', error);
+      setFetching(false);
+      return null;
+    }
+  }
+  
+ 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<ConfirmAge />} />
+        <Route path="/beer_gen" element={<BeerAPI refetchData={refetchData} />} />
+        <Route path="/beer_info" element={<BeerInfo />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

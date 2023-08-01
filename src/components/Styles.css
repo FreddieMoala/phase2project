@@ -1,0 +1,201 @@
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.container {
+  columns: 2;
+  font-Family: Arial, sans-serif;
+  text-Align: center;
+  padding: 20px;
+  background-Color: lightgray;
+}
+
+.header {
+  text-align: center;
+  font-Size: 36px;
+  font-Weight: bold;
+  margin-Bottom: 20px;
+}
+
+.box-button {
+  text-align: center;
+}
+
+.beer-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  padding: 10px 20px;
+  font-Size: 18px;
+  background-Color: dodgerblue;
+  color: white;
+  border: none;
+  border-Radius: 5px;
+  cursor: pointer;
+}
+
+.description {
+  font-Size: 16px;
+  margin-Top: 10px;
+}
+
+.beerImg {
+  width: 100%;
+  Width: auto;
+  max-height: 300px;
+  border-Radius: 5px;
+  margin-Top: 20px;
+  
+}
+
+.col {
+  font-Size: 16px;
+  margin-Top: 20px;
+  text-Align: left;
+}
+
+.ibu {
+  color: darkred;
+  text-Align: centre;
+}
+
+.srm {
+  color: darkorange;
+  text-Align: centre;
+}
+
+.aLevel {
+  color: darkblue;
+  text-Align: centre;
+}
+
+.imgInfo {
+  Width: auto;
+  height: 300px;
+  border-Radius: 8px;
+}
+
+table, th, td {
+  padding: 15px;
+  border: 1px solid;
+  text-align: center;
+
+}
+
+.details {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.leftColumn {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  border-radius: 5px;
+  background-color: blue;
+  
+  
+}
+
+
+.rightColumn {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  border-radius: 5px;
+  background-color: aqua;
+}
+
+.foodPair {
+  color: black;
+  size: 15px;
+}
+
+.food-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.food-list li {
+  margin-bottom: 5px;
+}
+
+/* ... (your existing styles) ... */
+
+/* Responsive styles for screen sizes smaller than 600px */
+@media (max-width: 600px) {
+  .container {
+    columns: 1; /* Set to 1 column for small screens */
+    padding: 10px; /* Reduce padding for small screens */
+  }
+  .header {
+    font-size: 24px; /* Reduce font size for small screens */
+    margin-bottom: 10px; /* Reduce margin for small screens */
+  }
+  .box-button {
+    padding: 5px; /* Reduce padding for small screens */
+  }
+  .beer-button {
+    font-size: 16px; /* Reduce font size for small screens */
+  }
+  .beerImg {
+    max-height: 200px; /* Reduce image height for small screens */
+  }
+  .imgInfo {
+    max-height: 100px; /* Reduce image height for small screens */
+  }
+  table,
+  th,
+  td {
+    padding: 10px; /* Reduce table padding for small screens */
+  }
+}
+
+/* Responsive styles for screen sizes smaller than 400px */
+@media (max-width: 400px) {
+  .header {
+    font-size: 20px;
+  }
+}
