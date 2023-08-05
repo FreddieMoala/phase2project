@@ -1,5 +1,6 @@
 import React from 'react';
 import {link, useNavigate } from 'react-router-dom';
+import "./Styles.css";
 
 export default function ConfirmAge() {
     const navigate = useNavigate();
@@ -13,11 +14,11 @@ export default function ConfirmAge() {
     };
 
     return (
-        <div>
+        <div className='confirm-age'>
             <h2>Are you above 18 years old?</h2>
             <button onClick={handleYesClick}>Yes</button>
             <button onClick={handleNoClick}>No</button>
-            <p>
+            <p >
                 If you are above 18 years old, Click "Yes" to contiune.
                 Otherwise, click "No"
             </p>

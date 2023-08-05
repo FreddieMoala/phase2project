@@ -42,11 +42,32 @@
 }
 
 .container {
-  columns: 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap:20px;
   font-Family: Arial, sans-serif;
   text-Align: center;
   padding: 20px;
-  background-Color: lightgray;
+  background-Color: rgb(15, 106, 217);
+}
+
+.navbar {
+  height: 60px;
+  width: 100%;
+  background-color: lightblue;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0.5rem 0rem;
+  color: black;
+  box-shadow: 0 2px 2px 2px rgba(9,9,9,0.23);
+}
+
+.linkto {
+  text-decoration: none;
+  color: black;
+  font-size: 1.3rem;
+  margin-left: 1rem;
 }
 
 .header {
@@ -58,6 +79,7 @@
 
 .box-button {
   text-align: center;
+
 }
 
 .beer-button {
@@ -65,9 +87,24 @@
   justify-content: center;
   align-items: center;
   top: 50%;
-  padding: 10px 20px;
+  padding: 10px;
+  margin-bottom: 5px;
   font-Size: 18px;
   background-Color: dodgerblue;
+  color: white;
+  border: none;
+  border-Radius: 5px;
+  cursor: pointer;
+}
+
+.favorite-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 50%;
+  padding: 10px;
+  font-Size: 18px;
+  background-Color: rgb(15, 170, 7);
   color: white;
   border: none;
   border-Radius: 5px;
@@ -128,18 +165,19 @@ table, th, td {
 }
 
 .leftColumn {
+  grid-column: 1;
   font-family: Arial, sans-serif;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 20px;
+  padding-top: 1px;
+  padding-bottom: 10px;
   border-radius: 5px;
   background-color: blue;
-  
-  
+  height: 700px;
 }
 
 
 .rightColumn {
+  grid-column: 2;
   font-family: Arial, sans-serif;
   text-align: center;
   padding: 20px;
@@ -161,6 +199,41 @@ table, th, td {
 .food-list li {
   margin-bottom: 5px;
 }
+
+.confirm-age {
+  text-align: center;
+  margin: 50px;
+}
+
+.confirm-age h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.confirm-age button {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin: 0 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.confirm-age button:first-child {
+  background-color: green;
+  color: white;
+}
+
+.confirm-age button:last-child {
+  background-color: red;
+  color: white;
+}
+
+.confirm-age p {
+  font-size: 14px;
+  margin-top: 20px;
+}
+
 
 /* ... (your existing styles) ... */
 

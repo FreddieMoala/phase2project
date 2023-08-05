@@ -1,14 +1,28 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import './Styles.css';
 import Legend from './Legend';
-import BeerAPI from './BeerAPI';
-import Button from './Button';
+import ButtonCall from './ButtonCall';
+import Favorites from "./Favorites";
 
 
-export default function BeerInfo ({beerData, refetchData}) {
+export default function BeerInfo ({beerData, refetchData, addToFavorites}) {
+  const [favorites, setFavorites] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:3001/favorites')
+      .then(response => response.json())
+      .then(data => setFavorites(data))
+      .catch(error => console.error('Error fetching favorites:', error));
+
+  }, []);
+  
+
+
 if (!beerData) {
   return <p>Loading...</p>;
 }
+
+
  
   const fallBackUrl = 'https://www.wallpics.net/wp-content/uploads/2018/10/Beer-Background-image.jpg';
 
@@ -34,13 +48,33 @@ if (!beerData) {
   };
   
     const backgroundColor = getBackgroundColor(beerData.srm);
-  
+
+    const handleAddToFavorites = () => {
+      fetch('http://localhost:3001/favorites', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(beerData),
+      })
+        .then(response => response.json())
+        .then(newFavorite => {
+          setFavorites(prevFavorites => [...prevFavorites, newFavorite]);
+        })
+        .catch(error => {
+          console.error('Error adding to favorites: ', error);
+        });
+    };
+    
+    
   return (
     <React.Fragment>
       <div className="App">
-              <h1 className="header">Show me the Beer!</h1>
-              <Button refetchData={refetchData}/>
-            </div>
+          <h1 className="header">Show me the Beer!</h1>
+          <ButtonCall handleAddToFavorites={handleAddToFavorites} beerData={beerData} refetchData={refetchData}/>
+        </div>
+            {/* <Favorites favorites={favorites} /> */}
+            
        <div className="container">
        <p className="description"></p>
             <div style={{ backgroundColor }} className="leftColumn">
@@ -57,21 +91,26 @@ if (!beerData) {
             </div>
             <div className="rightColumn">
                 <table className="details">
+                  <thead>
                   <tr>
-                    <th>IBU</th>
-                    <th>SRM</th>
-                    <th>Attenuation Level</th>
+                    <td>IBU</td>
+                    <td>SRM</td>
+                    <td>Attenuation Level</td>
                   </tr>
+                  </thead>
+                  <tbody>
                   <tr>
                     <td className="ibu">{beerData.ibu}</td>
                     <td className="srm">{beerData.srm}</td>
                     <td className="aLevel">{beerData.attenuation_level}</td>
                   </tr>
+                  </tbody>
                 </table>
                 <Legend />
               </div>
           </div>
     </React.Fragment>
   );
+  
 };
 

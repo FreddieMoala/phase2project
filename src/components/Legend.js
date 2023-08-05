@@ -3,8 +3,8 @@ import React from 'react';
 export default function Legend() {
 
     return(
-      <React.Fragment className="col">
-              <div>
+      <React.Fragment>
+              <div className="col">
               <h2 className="ibu">IBU</h2>
               <p>
                 Stands for International Bitterness Units, a scale that measures
