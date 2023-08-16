@@ -1,27 +1,28 @@
-import React from 'react';
-import {link, useNavigate } from 'react-router-dom';
-import "./Styles.css";
+// ConfirmAge.js
 
-export default function ConfirmAge() {
-    const navigate = useNavigate();
+import React, { useState } from 'react';
 
-    const handleYesClick = () => {
-        navigate('/beer_gen');
-    };
+export default function ConfirmAge({ onConfirm }) {
+    const [age, setAge] = useState('');
 
-    const handleNoClick = () => {
-        alert("You're too young");
+    const handleSubmit = () => {
+        if (parseInt(age) >= 18) { // Assuming 21 is the legal drinking age.
+            onConfirm(true);
+        } else {
+            onConfirm(false);
+        }
     };
 
     return (
-        <div className='confirm-age'>
-            <h2>Are you above 18 years old?</h2>
-            <button onClick={handleYesClick}>Yes</button>
-            <button onClick={handleNoClick}>No</button>
-            <p >
-                If you are above 18 years old, Click "Yes" to contiune.
-                Otherwise, click "No"
-            </p>
+        <div>
+            <h2>Please confirm your age</h2>
+            <input
+                type="number"
+                placeholder="Enter your age"
+                value={age}
+                onChange={e => setAge(e.target.value)}
+            />
+            <button onClick={handleSubmit}>Submit</button>
         </div>
     );
-};
+}

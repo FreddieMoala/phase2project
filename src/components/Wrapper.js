@@ -6,7 +6,7 @@ import Favorites from './Favorites';
 export default function Wrapper ({ children }) {
   const location = useLocation();
 
-  const hiddenRoutes = ['/', '/beer_gen', '/ConfirmAge'];
+  const hiddenRoutes = ['/', '/ConfirmAge'];
 
   return (
     <div>

@@ -1,57 +1,80 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import BeerAPI from "./components/BeerAPI";
-import BeerInfo from "./components/BeerInfo";
-import './components/Styles.css'
-import ConfirmAge from "./components/ConfirmAge";
-import Wrapper from "./components/Wrapper";
+import React, { useState, useEffect } from 'react';
+import BeerInfo from './components/BeerInfo';
+import Favorites from './components/Favorites';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ConfirmAge from './components/ConfirmAge';
+import { fetchBeerData as fetchBeerFromAPI, fetchFavoritesAPI, addToFavoritesAPI as addToFavoritesService, fetchBeerData } from './components/apiServices'; 
+import NavBar from './components/NavBar';
+import BeerDetails from './components/BeerDetails';
 
+export default function App() {
+    const [beerData, setBeerData] = useState(null);
+    const [favorites, setFavorites] = useState([]);
+    const [isAgeConfirmed, setIsAgeConfirmed] = useState(false);
 
+    const handleAgeConfirmation = (isLegalAge) => {
+        setIsAgeConfirmed(isLegalAge);
+    };
+// console.log(fetchBeerData);
+    const fetchRandomBeer = async () => {
+        try {
+            const data = await fetchBeerFromAPI();
+            setBeerData(data);
+        } catch (error) {
+            console.error("Error fetching beer data:", error);
+        }
+    };
 
-export default function App () {
-  const [beerData, setBeerData] = useState(null);
-  const [isFetching, setFetching] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+    useEffect(() => {
+        if (isAgeConfirmed) {
+            fetchRandomBeer();
+        }
+    }, [isAgeConfirmed]);
 
- 
-
-  const refetchData = async () => {
-    try {
-      setFetching(true);
-      const response = await fetch('https://api.punkapi.com/v2/beers/random');
-      const data = await response.json();
-      setBeerData(data[0]); 
-      setFetching(false);
-      return data[0];
-    } catch (error) {
-      console.log('Error fetching beer data:', error);
-      setFetching(false);
-      return null;
-    }
-  }
-
-  const addToFavorites = (beer) => {
-    setFavorites((prevFavorites) => [...prevFavorites, beer]);
-    
-  };
-  
-
-  return (
-    <div>
-    <Router>
-      <Wrapper>
-      <Routes>
-        <Route path="/" element={<ConfirmAge />} />
-        <Route path="/beer_info" element={<BeerInfo beerData={beerData} addToFavorites={addToFavorites}/>} />
-        <Route path="/beer_gen" element={<BeerAPI refectching={refetchData}/>} />
+    useEffect(() => {
+        // Get the initial favorites when the component mounts
+        const getInitialFavorites = async () => {
+            try {
+                const data = await fetchFavoritesAPI();
+                setFavorites(data);
+            } catch (error) {
+                console.error('Error fetching initial favorites:', error);
+            }
+        };
         
-      </Routes>
-      </Wrapper>
-    </Router>
-    </div>
-    
-  );
-  
-};
+        getInitialFavorites();
+    }, []);
 
+    const addToFavorites = async (beer) => {
+        try {
+            await addToFavoritesService(beer);
+            setFavorites(prevFavorites => [...prevFavorites, beer]);  // Update the favorites in state
+        } catch (error) {
+            console.error('Error adding to favorites:', error);
+        }
+    };
+
+    return (
+        <Router>
+            <div className="App">
+            <NavBar favoritesCount={favorites.length} />
+                {isAgeConfirmed ? (
+                <>
+                <h1>Beer App</h1>
+        
+
+                <Routes>
+
+                    <Route path="/" element={<BeerInfo beerData={beerData} setBeerData={setBeerData} addToFavorites={addToFavorites} />} />
+                    <Route path="/favorites" element={<Favorites favorites={favorites} setFavorites={setFavorites} />} />
+                    <Route path="beer_info/:id" element={<BeerDetails />} />
+                </Routes>
+                </>
+                ) : (
+                    <ConfirmAge onConfirm={handleAgeConfirmation} />
+                )}
+            </div>
+        </Router>
+    );
+}
 
